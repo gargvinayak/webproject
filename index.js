@@ -39,7 +39,7 @@ app.post("/",(req,res)=>{
     
     var myData = new Contact(req.body);
   console.log(req.body)
-    myData.save()
+  Contact.insertMany([myData]);
     res.status(200).render('index.pug')
     })
 
