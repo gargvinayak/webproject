@@ -1,15 +1,16 @@
 const express = require("express");
 const path = require("path");
 const app = express();
-const port = 80;
 const mongoose = require('mongoose');
 const bodyparser = require("body-parser")
-
+require('dotenv').config();
+const PORT = process.env.PORT || 3000 ;
+mongoose.set('strictQuery',false);
 
 main().catch(err => console.log(err));
 
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/contactsch');
+  await mongoose.connect(process.env.MONGO_URI);
 }
 const contactSchema = new mongoose.Schema({
     name: String,
@@ -48,6 +49,6 @@ app.post("/",(req,res)=>{
 // res.status(200).render('index.pug',params)
 // })
 
-app.listen(port,()=>{
+app.listen(PORT,()=>{
     console.log("pug server started")
 })
