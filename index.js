@@ -7,10 +7,14 @@ require('dotenv').config();
 const PORT = process.env.PORT || 3000 ;
 mongoose.set('strictQuery',false);
 
-main().catch(err => console.log(err));
 
-async function main() {
-  await mongoose.connect(process.env.MONGO_URI);
+const connectDB = async ()=> {
+    try{
+      await mongoose.connect(process.env.MONGO_URI);
+    } catch(error){
+      console.log(error);
+      process.exit(1);
+    }
 }
 const contactSchema = new mongoose.Schema({
     name: String,
@@ -50,6 +54,8 @@ app.post("/",(req,res)=>{
 // res.status(200).render('index.pug',params)
 // })
 
+connectDB().then(()=>{
 app.listen(PORT,()=>{
     console.log("pug server started")
+})
 })
