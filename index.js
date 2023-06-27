@@ -38,7 +38,7 @@ res.status(200).render('index.pug',params)
 app.post("/",(req,res)=>{
     
     var myData = new Contact(req.body);
-  console.log("data has been saved")
+  console.log(req.body)
     myData.save()
     res.status(200).render('index.pug')
     })
